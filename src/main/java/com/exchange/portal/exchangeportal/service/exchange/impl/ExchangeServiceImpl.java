@@ -5,19 +5,18 @@ import com.exchange.portal.exchangeportal.common.db.mapper.ExchangeMapper;
 import com.exchange.portal.exchangeportal.common.db.po.ExchangePO;
 import com.exchange.portal.exchangeportal.common.vo.ExchangeData;
 import com.exchange.portal.exchangeportal.common.vo.ExchangeVO;
+import com.exchange.portal.exchangeportal.service.exchange.ExchangeRateService;
 import com.exchange.portal.exchangeportal.service.exchange.ExchangeService;
-import com.exchange.portal.exchangeportal.service.redis.RedisService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.google.common.collect.ImmutableList;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.EnumUtils;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,9 +27,7 @@ public class ExchangeServiceImpl implements ExchangeService {
 
     private final ExchangeMapper exchangeMapper;
 
-    private final RedisService redisService;
-
-    private final static String RATE_CURRENCY_KEY = "EXCHANGE_RATE";
+    private final ExchangeRateService exchangeRateService;
 
     @Override
     public void addExchange(List<ExchangePO> exchangePOList) {
@@ -40,13 +37,13 @@ public class ExchangeServiceImpl implements ExchangeService {
     @Override
     public PageInfo<ExchangeVO> queryExchange(String iban, String locale, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<ExchangePO> items = exchangeMapper.listExchange(iban, pageNum, pageSize);
+        List<ExchangePO> items = exchangeRateService.queryExchangeMapper(iban, pageNum, pageSize);
         Page<ExchangeVO> voItems = new Page<>();
 
         List<String> idList = Arrays.stream(LocaleEnum.values()).map(LocaleEnum::getCurrency).collect(Collectors.toList());
-        Map<String, ExchangeData> exchangeData = redisService.getCacheMultiMap(RATE_CURRENCY_KEY, idList, ExchangeData.class);
-
-        if(exchangeData == null || exchangeData.isEmpty()) {
+        Map<String, ExchangeData> exchangeData = new HashMap<>();
+        idList.forEach(currency -> exchangeData.put(currency,  exchangeRateService.queryExchangeRateCache(currency)));
+        if (exchangeData.isEmpty()) {
             return new PageInfo<>(new Page<>(), 5);
         }
 

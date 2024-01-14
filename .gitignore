@@ -1,8 +1,10 @@
+.DS_Store
+.mvn
+mvnw
+mvnw.cmd
 HELP.md
-target/
+/target/
 !.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -14,7 +16,8 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/*
+!/.idea/runConfigurations/
 *.iws
 *.iml
 *.ipr
@@ -25,9 +28,17 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+/build/
 
 ### VS Code ###
 .vscode/
+target/
+
+### log ###
+forGitproject/
+${fileGz}/*
+.attach_pid**
+product-business/
+src/main/resources/application-local.properties
+
+./db/data/

@@ -25,7 +25,7 @@ services:
       KAFKA_BOOTSTRAP.SERVERS: 'broker:29091'
       KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29091,PLAINTEXT_HOST://broker:9091
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker:29091,PLAINTEXT_HOST://127.0.0.1:9091
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
   redis:
@@ -58,7 +58,7 @@ services:
     hostname: exchange-portal
     container_name: exchange-portal
     ports:
-      - "8080:8080"
+      - "8083:8083"
     depends_on:
       - database
     environment:
@@ -67,7 +67,9 @@ services:
       spring_datasource_primary_ip: database:3306
       spring_datasource_primary_password: 12345678
       spring_datasource_primary_username: admin
-      spring_kafka_bootstrap_ip: broker:9091
+      spring_kafka_bootstrap_ip: broker
+      spring_kafka_bootstrap_port: 9091
       spring_redis_host: redis
       spring_redis_port: 6379
       addition_env_name: exchange
+      server_port: 8083

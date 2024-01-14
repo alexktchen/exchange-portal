@@ -19,7 +19,7 @@ zookeeper port: 2181
 kafka broker port: 9091
 redis port: 6379
 database(mariadb) port: 3306
-exchange-portal port : 8080
+exchange-portal port : 8083
 ```
 
 ### API Swagger Doc:
@@ -31,5 +31,21 @@ http://localhost:8080/swagger-ui.html#/
 - Access token us: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJhY2NvdW50SWJhblwiOlwiQ0g5My0wMDAwLTAwMDAtMDAwMC0wMDAwLTBcIixcImxvY2FsZVwiOlwidXNcIn0iLCJjcmVhdGVkIjoxNzA1MDQ0Mjg2Mzg0LCJleHAiOjE3MzYxNDgyODZ9.C70VX_9PcQ6BbW6lQD5wlQI_gfRQbJBMbhsKZbVNJj0ux65NK12n08D87njufc830lHODPV5h0bMslccvt92AQ
 - Access token JP: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ7XCJhY2NvdW50SWJhblwiOlwiQ0g5My0wMDAwLTAwMDAtMDAwMC0wMDAwLTBcIixcImxvY2FsZVwiOlwianBcIn0iLCJjcmVhdGVkIjoxNzA1MDQ0ODA0NTk1LCJleHAiOjE3MzYxNDg4MDR9.mP9kU0dIrcnvB0dW9RxJlc-fEDTK9yKSpUxiyzcdB8QaBfQHiopsxpnamjyz3vk86ah8Y-GH_9CEB7cPmdwS1w
 
+### Kafka 
 
+#### The kafka Architecture is the ExchangeMessageProcessor register to Abstract class, and call the handler by CompletableFuture multi thread
+
+
+#### kafka message sample :
+```json
+[
+    {
+        "accountIban": "CH93-0000-0000-0000-0000-0",
+        "amount": 100,
+        "currency": "USD",
+        "valueDate": 1704769200000,
+        "description": "test"
+    }
+]
+```
 

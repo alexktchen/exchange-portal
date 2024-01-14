@@ -37,7 +37,6 @@ public abstract class AbstractTopicMessageProcessor<T> implements MessageDeseria
     public CompletableFuture<Void> receive(List<ConsumerRecord<String, String>> message, Acknowledgment acknowledgment) {
         List<CompletableFuture<Void>> futureList = Lists.newArrayList();
 
-        // 處理訊息
         futureList.add(asyncProcess(message));
 
         CompletableFuture<Void> allFuture = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0]));

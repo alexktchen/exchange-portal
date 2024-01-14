@@ -185,6 +185,31 @@
 			<version>4.20.1</version>
 		</dependency>
 
+		<dependency>
+			<groupId>io.github.ck-jesse</groupId>
+			<artifactId>l2cache-spring-boot-starter</artifactId>
+			<version>1.0.36</version>
+		</dependency>
+
+		<!-- guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>33.0.0-jre</version>
+		</dependency>
+
+		<!-- redisson -->
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>3.25.2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.83</version>
+		</dependency>
 	</dependencies>
 
 	<build>

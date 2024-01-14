@@ -1,6 +1,6 @@
 package com.exchange.portal.exchangeportal.domain.schedule;
 
-import com.exchange.portal.exchangeportal.domain.service.ExchangeRateService;
+import com.exchange.portal.exchangeportal.service.exchange.ExchangeRateService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
