@@ -1,3 +1,5 @@
+## Architecture
+![image](https://github.com/alexktchen/exchange-portal/blob/main/architecture.png)
 
 ## How To run
 ### build docker image on the local
