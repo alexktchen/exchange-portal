@@ -27,7 +27,7 @@ jobs:
             - ~/.m2
           key: exchange-portal-{{ checksum "pom.xml" }}
       - store_artifacts:
-          path: target/classes
+          path: target
           destination: exchange-portal
   # deploy:
   #   docker:
