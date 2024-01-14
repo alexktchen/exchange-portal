@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exchange.portal.exchangeportal.common.db.mapper.ExchangeMapper">
+
+    <insert id="addExchange">
+        INSERT IGNORE INTO exchange_history(uuid, amount, iban, value_date, create_time, update_time, currency, description) VALUES
+        <foreach item="item" index="index" collection="list" open="" separator="," close="">
+            (#{item.uid}, #{item.amount}, #{item.accountIban}, #{item.valueDate}, #{item.createTime}, #{item.updateTime},
+            #{item.currency}, #{item.description})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        uuid = VALUES(uuid),
+        amount = VALUES(amount),
+        iban = VALUES(iban),
+        value_date = VALUES(value_date),
+        create_time = VALUES(create_time),
+        update_time = VALUES(update_time),
+        currency = VALUES(currency),
+        description = VALUES(description)
+    </insert>
+
+    <select id="listExchange" resultType="com.exchange.portal.exchangeportal.common.db.po.ExchangePO">
+        SELECT amount, iban as accountIban, value_date, currency, description
+        FROM exchange_history
+        WHERE iban = #{iban}
+        ORDER BY value_date DESC
+    </select>
+</mapper>
